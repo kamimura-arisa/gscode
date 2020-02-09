@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+<body>
+    <div>
+        名前
+        <input type="text" id="username">
+      </div>
+      <div>
+        テキスト
+        <textarea name="" id="text" cols="30" rows="10"></textarea>
+      </div>
+      <div>
+          <form method="post" enctype="multipart/form-data"action=" gs://gskadaiyou.appspot.com">
+           
+            <!-- 画像ファイル<input type="file" id="btnUpload" value="アップロード">
+            <br>
+            <input type="submit" name="botan" value="send" id="UP"> -->
+            <input type="file" id="file" />
+            <button id="upload" type="button">アップロード</button>
+            </form>
+      </div>
+      <div>
+        <button id="send">送信</button>
+      </div>
+      <div>
+        <div id="output"></div>
+      </div>　　　　
+    
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase.js"></script>
+<script defer src="https://console.firebase.google.com/project/gskadaiyou/storage/gskadaiyou.appspot.com/files"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+     <!-- こっから下固定 -->
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCSaeSr4jHrx0aP4yPUGf2F2hxuIW31etE",
+    authDomain: "gskadaiyou.firebaseapp.com",
+    databaseURL: "https://gskadaiyou.firebaseio.com",
+    projectId: "gskadaiyou",
+    storageBucket: "gskadaiyou.appspot.com",
+    messagingSenderId: "427498424974",
+    appId: "1:427498424974:web:967a3141e0af53e8e1d7df"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+//  この上消さない
+
+// Get a reference to the storage service, which is used to create references in your storage bucket
+var storage = firebase.storage();
+
+// Create a storage reference from our storage service
+var storageRef = storage.ref();
+
+// Create a child reference
+var imagesRef = storageRef.child('images');
+// imagesRef now points to 'images'
+
+// Child references can also take paths delimited by '/'
+var spaceRef = storageRef.child('images/kogi.png');
+// spaceRef now points to "images/space.jpg"
+// imagesRef still points to "images"
+// Create a reference to 'mountains.jpg'
+var mountainsRef = storageRef.child('kogi.png');
+
+// Create a reference to 'images/mountains.jpg'
+var mountainImagesRef = storageRef.child('images/kogi.png');
+
+// While the file names are the same, the references point to different files
+mountainsRef.name === mountainImagesRef.name            // true
+mountainsRef.fullPath === mountainImagesRef.fullPath    // false
+
+var file = ... // use the Blob or File API
+ref.put(file).then(function(snapshot) {
+  console.log('Uploaded a blob or file!');
+});
+
+
+//   var imgSample = storageRef.child('kogi.png');
+//   $("#UP").on("click",function(){
+//       document.getElementById('upload').addEventListener('click', function() {
+//         var files = document.getElementById('file').files;
+//         var image = files[0];
+
+//         var ref = firebase.storage().ref().child(image.name);
+//         ref.put(image).then(function(snapshot) {
+//           alert('アップロードしました');
+//         })
+//       });
+
+//       var btnUploadChange = function(ev){
+//    //ストレージへアップロードするファイルのパスを生成する
+//    var uploadRef = storageRef.child('kogi.png');
+//    const f = ev.target.files[0];
+//    uploadRef.put(f).then(function(snapshot) {
+//      console.log('Uploaded a blob or file!');
+
+//      //アップロードしたファイルを表示してみる
+//      uploadRef.getDownloadURL().then(function(url){
+//        console.log("imgSample "+url);
+//        document.getElementById("imgSample").style.backgroundImage = "url("+url+")";
+//      }).catch(function(error) {
+//        // Handle any errors
+//        console.log(error);
+//      });
+
+//    });
+// };
+//       window.onload = function() {
+//   //htmlロード完了したらストレージの画像を表示してみる
+//   imgSample.getDownloadURL().then(function(url){
+//     document.getElementById("imgSample").style.backgroundImage = "url("+url+")";
+//   }).catch(function(error) {
+//     // Handle any errors
+//     console.log(error);
+//   });
+// };
+  // 下は授業でやったとこ
+  const newPostRef = firebase.database().ref();
+    $("#send").on("click",function(){
+      newPostRef.push({
+        username:$("#username").val(),
+        text:$("#text").val(),
+      })
+      $("#username").val("");
+      $("#text").val("");
+    })
+    newPostRef.on("child_added", function (data) {
+    let v = date.val();
+    let k = date.key;
+
+    let str = `<p>${v.username}<br>${v.text}<p>`;
+    $("#output").prepend(str);
+    })
+
+    $("#text").on("keydown", function (e) {
+    console.log(e.keyCode)
+
+    if(e.keyCode === 13){
+    newPostRef.push({
+        username:$("#username").val(),
+        text:$("#text").val(),
+      })
+      $("#username").val("");
+      $("#text").val("");
+    }
+    });
+</script>
+
+</body>
+</html>

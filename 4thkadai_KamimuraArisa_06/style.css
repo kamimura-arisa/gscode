@@ -1,0 +1,50 @@
+/* .form-group{
+padding-top: 70px;
+margin-bottom: 40px;
+    position: relative;
+    font-size: 16px;
+    line-height: 1.8;
+    /* color: blue; */
+    /* display: inline-block;
+    transition: all 0.3s ease 0s;
+    cursor: pointer; */
+    /* .form-group:hover {
+    color: #4CAF50;
+  } */
+  /* #upload{
+    padding-top: 30px;
+    margin-bottom: 40px;
+        position: relative;
+        font-size: 18px;
+        line-height: 1.8;
+        color: blue;
+        display: inline-block;
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        font-weight: bold;
+        
+      }
+      #upload:hover {
+        color: #4CAF50;
+      }    */
+    .taitoru{
+        font-size: 30px;
+        color: blue;
+        font-weight: bold;
+    }
+    .botan{
+        padding-top: 40px;
+    }
+    .saku{
+        padding-top: 20px;  
+    }
+.komento{
+    font-size: 20px;
+    font-weight: bold;
+}
+.namaebox{
+  margin-bottom: 20px;
+}
+.textbox{
+  margin-bottom: 20px;
+}

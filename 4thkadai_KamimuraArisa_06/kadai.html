@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="/__/firebase/7.8.0/firebase.js"></script>
+    <script defer src="/__/firebase/7.8.0/firebase-storage.js"></script>
+    <script defer src="/__/firebase/init.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <main id="main">
+        <section id="content">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <div class="col-md-12">
+                <h1 class="taitoru">storageに画像アップしてみったー</h1>
+                <span class="btn btn-file btn-info btn-sm btn-block">
+                      <input type="file" name="file" id="file">
+                  </span>
+              </div>
+            </div>
+            <div class="botan"><button type="button" id="upload" class="btn btn-gr-gray btn-block">! アップロード !</button></div>
+            <!-- <div class="saku"><button type="button" id="delete" class="btn btn-gr-gray btn-block">削除</button></div> -->
+            
+            <div>
+              <div id="output"></div>
+            </div>　　　　
+          </form>
+          <div class="divider"></div>
+          <img src="" id="image">
+        </section>   
+        <h2 class="komento">＜コメント＞</h2>
+          <div class="namaebox">
+            名前
+            <input type="text" id="username">
+          </div>
+          <div class="textbox">
+            テキスト
+            <textarea name="" id="text" cols="30" rows="10"></textarea>
+          </div>
+          <div class="sousinbox">
+            <button id="send">送信</button>
+          </div>
+          <div>
+            <div id="output"></div>
+          </div>　　　　
+      </main>
+
+    
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase.js"></script>
+
+ <!-- TODO: Add SDKs for Firebase products that you want to use
+    //  https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCSaeSr4jHrx0aP4yPUGf2F2hxuIW31etE",
+    authDomain: "gskadaiyou.firebaseapp.com",
+    databaseURL: "https://gskadaiyou.firebaseio.com",
+    projectId: "gskadaiyou",
+    storageBucket: "gskadaiyou.appspot.com",
+    messagingSenderId: "427498424974",
+    appId: "1:427498424974:web:967a3141e0af53e8e1d7df"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+        document.getElementById('upload').addEventListener('click', function() {
+          files = document.getElementById('file').files;
+          image = files[0];
+  
+          if(files[0].type.indexOf('image') >= 0) {
+            ref = firebase.storage().ref().child(image.name);
+            ref.put(image).then(function(snapshot) {
+              ref.getDownloadURL().then(function(url){
+                alert('画像をアップロードしました！');
+                document.getElementById('image').src = url;
+              });
+            });
+          } else {
+            alert('アップロードできるのはjpeg、png、gifの画像だけです');
+          }
+        });
+  
+        // document.getElementById('delete').addEventListener('click', function() {
+        //   ref.delete().then(function(){
+        //     alert('画像を削除しました！');
+        //   });
+        // });
+
+        // 以下、コメント欄
+        const newPostRef = firebase.database().ref();
+    $("#send").on("click",function(){
+      newPostRef.push({
+        username:$("#username").val(),
+        text:$("#text").val(),
+      })
+      $("#username").val("");
+      $("#text").val("");
+    })
+    newPostRef.on("child_added", function (data) {
+    let v = date.val();
+    let k = date.key;
+
+    let str = `<p>${v.username}<br>${v.text}<p>`;
+    $("#output").prepend(str);
+    })
+
+    $("#text").on("keydown", function (e) {
+    console.log(e.keyCode)
+
+    if(e.keyCode === 13){
+    newPostRef.push({
+        username:$("#username").val(),
+        text:$("#text").val(),
+      })
+      $("#username").val("");
+      $("#text").val("");
+    }
+    });
+      </script>
+</body>
+</html>

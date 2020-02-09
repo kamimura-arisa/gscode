@@ -1,0 +1,22 @@
+uploderのコード
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCSaeSr4jHrx0aP4yPUGf2F2hxuIW31etE",
+    authDomain: "gskadaiyou.firebaseapp.com",
+    databaseURL: "https://gskadaiyou.firebaseio.com",
+    projectId: "gskadaiyou",
+    storageBucket: "gskadaiyou.appspot.com",
+    messagingSenderId: "427498424974",
+    appId: "1:427498424974:web:967a3141e0af53e8e1d7df"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
